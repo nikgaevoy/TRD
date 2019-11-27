@@ -1,0 +1,70 @@
+\documentclass[12pt,a4paper,russian]{article}
+
+\sloppy
+
+\usepackage[small]{complexity}
+\usepackage[utf8]{inputenc}
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage{csquotes}
+\usepackage[russian,english]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage[breaklinks]{hyperref}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{comment}
+\usepackage{bookmark}
+\usepackage{mathtools}
+\usepackage{makecell,xcolor}
+\usepackage{tikz}
+\usepackage[backend=bibtex,style=alphabetic]{biblatex}
+
+% \usepackage{fontspec}
+% \setmonofont{Fira Code}[
+%   Contextuals=Alternate  % Activate the calt feature
+% ]
+\usepackage{listings}
+% \usepackage{lstfiracode} % https://ctan.org/pkg/lstfiracode
+\lstset{
+    basicstyle=\ttfamily   % Use \ttfamily for source code listings
+    columns=fullflexible,
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
+}
+% \usepackage{lstfiracode} % https://ctan.org/pkg/lstfiracode
+% \lstset{
+%   language=C++,
+%   style=FiraCodeStyle,   % Use predefined FiraCodeStyle
+%   basicstyle=\ttfamily   % Use \ttfamily for source code listings
+% }
+
+\lstset{tabsize=4}
+
+\DeclarePairedDelimiter\set{\lbrace}{\rbrace}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand{\map}[2]{\set{#1 \mid #2}}
+
+\title{Team Reference}
+\author{SPb SU LOUD Enough}
+\date{2019--2020}
+
+\begin{document}
+
+\selectlanguage{russian}
+
+\maketitle
+
+\input{scripts.tex}
+\input{bugs.tex}
+\input{geometry.tex}
+\input{numbers.tex}
+\input{graphs.tex}
+\input{pushfree.tex}
+
+\end{document}
