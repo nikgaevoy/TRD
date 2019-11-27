@@ -15,10 +15,9 @@
 \usepackage{makecell,xcolor}
 \usepackage{tikz}
 \usepackage[backend=biber,style=alphabetic]{biblatex}
-
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
 \usepackage{fontspec}
 
-\defaultfontfeatures{Ligatures={TeX},Renderer=Basic}  %% свойства шрифтов по умолчанию
 \setmainfont[Ligatures={TeX,Historic}]{CMU Serif} %% задаёт основной шрифт документа
 \setsansfont{CMU Sans Serif}                    %% задаёт шрифт без засечек
 \setmonofont{Fira Code}[
@@ -28,9 +27,8 @@
 \usepackage{lstfiracode} % https://ctan.org/pkg/lstfiracode
 \lstset{
 	style=FiraCodeStyle,
-    basicstyle=\ttfamily   % Use \ttfamily for source code listings
-    columns=fullflexible,
-    breaklines=true,
+    basicstyle=\ttfamily,   % Use \ttfamily for source code listings
+	breaklines=true,
     postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
 }
 
@@ -53,11 +51,12 @@
 
 \maketitle
 
-\input{scripts.tex}
-\input{bugs.tex}
-\input{geometry.tex}
-\input{numbers.tex}
-\input{graphs.tex}
-\input{pushfree.tex}
+\input{scripts}
+\input{bugs}
+\input{geometry}
+\input{numbers}
+\input{graphs}
+\input{pushfree}
+\input{number-theory}
 
 \end{document}
