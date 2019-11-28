@@ -15,19 +15,25 @@
 \usepackage{makecell,xcolor}
 \usepackage{tikz}
 \usepackage[backend=biber,style=alphabetic]{biblatex}
+
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage{fancybox,fancyhdr}
+\usepackage{lastpage}
+\usepackage{titling}
+
 \usepackage{fontspec}
 
-\setmainfont[Ligatures={TeX,Historic}]{CMU Serif} %% задаёт основной шрифт документа
-\setsansfont{CMU Sans Serif}                    %% задаёт шрифт без засечек
+\setmainfont[Ligatures={TeX,Historic}]{CMU Serif}
+\setsansfont{CMU Sans Serif}
 \setmonofont{Fira Code}[
 	Contextuals=Alternate  % Activate the calt feature
 ]
 \usepackage{listings}
-\usepackage{lstfiracode} % https://ctan.org/pkg/lstfiracode
+\usepackage{lstfiracode}
 \lstset{
 	style=FiraCodeStyle,
     basicstyle=\ttfamily,   % Use \ttfamily for source code listings
+    numbers=left,
 	breaklines=true,
     postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
 }
@@ -42,14 +48,21 @@
 \newcommand{\map}[2]{\set{#1 \mid #2}}
 
 \title{Team Reference}
-\author{SPb SU LOUD Enough}
-\date{2019--2020}
+\author{SPb SU LOUD Enough (Bochkov, Gaevoy, Makarov)}
+
+\pagestyle{fancy}
+\fancyhead[L]{\theauthor}
+\fancyhead[C]{}
+\fancyhead[R]{Page {\thepage} of \pageref{LastPage}}
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{}
 
 \begin{document}
 
 \selectlanguage{russian}
 
-\maketitle
+\tableofcontents
 
 \input{contents}
 
