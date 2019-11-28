@@ -58,6 +58,32 @@
 \fancyfoot[C]{}
 \fancyfoot[R]{}
 
+\def\sqgrid{
+	\newpage
+
+	\begin{figure} \centering \tikz{
+		\foreach \x in {0,...,50} { % вот тут количество строк
+			\draw[color=gray,opacity=0.45] (0, 0.5 * \x cm) -- (17, 0.5 * \x cm);
+		}
+		\foreach \x in {0,...,34} { % вот тут количество столбцов
+			\draw[color=gray,opacity=0.45] (0.5 * \x cm, 0) -- (0.5 * \x cm, 25);
+		}
+	} \end{figure}
+}
+
+\def\dotgrid{
+	\newpage
+
+	\begin{figure} \centering \tikz{
+		\foreach \x in {0,...,50} {
+			\foreach \y in {0,...,34} {
+				\fill[fill=gray,opacity=0.45] (0.5 * \y cm, 0.5 * \x cm)
+					node{\textcolor{gray}{.}};
+			};
+		}
+	} \end{figure}
+}
+
 \begin{document}
 
 \selectlanguage{russian}
@@ -65,5 +91,7 @@
 \tableofcontents
 
 \input{contents}
+
+\dotgrid
 
 \end{document}
