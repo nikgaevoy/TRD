@@ -16,6 +16,8 @@
 \usepackage{tikz}
 \usepackage[backend=biber,style=alphabetic]{biblatex}
 
+\usepackage{forloop}
+
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
 \usepackage{fancybox,fancyhdr}
 \usepackage{lastpage}
@@ -92,6 +94,11 @@
 
 \input{contents}
 
-\dotgrid
+\newcounter{ct}
+
+\forloop[2]{ct}{\thepage}{\value{ct} < 24}{%
+	\sqgrid%
+	\dotgrid%
+}
 
 \end{document}
