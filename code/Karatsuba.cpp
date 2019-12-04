@@ -1,3 +1,5 @@
+// functon Karatsuba (and stupid as well) computes c += a * b, not c = a * b
+
 using hvect = vector<modulo<>>::iterator;
 using hcvect = vector<modulo<>>::const_iterator;
 
@@ -28,8 +30,6 @@ void Karatsuba(size_t siz, hcvect abegin, hcvect bbegin, hvect ans, hvect small,
 {
 	assert((siz & (siz - 1)) == 0);
 
-	fill(ans, ans + 2 * siz, 0);
-
 	if (siz <= 32)
 	{
 		stupid(siz, abegin, bbegin, ans);
@@ -41,7 +41,9 @@ void Karatsuba(size_t siz, hcvect abegin, hcvect bbegin, hvect ans, hvect small,
 	auto bmid = bbegin + siz / 2, bend = bbegin + siz;
 	auto smid = sum + siz / 2, send = sum + siz;
 
+	fill(small, small + siz, 0);
 	Karatsuba(siz / 2, abegin, bbegin, small, small + siz, big + siz, sum);
+	fill(big, big + siz, 0);
 	Karatsuba(siz / 2, amid, bmid, big, small + siz, big + siz, sum);
 
 	copy(abegin, amid, sum);
@@ -63,7 +65,7 @@ void mult(vector<modulo<>> a, vector<modulo<>> b, vector<modulo<>> &c)
 	a.resize(up(max(a.size(), b.size())), 0);
 	b.resize(a.size(), 0);
 
-	c.resize(a.size() * 2);
+	c.assign(a.size() * 2, 0);
 
 	auto small = c;
 	auto big = c;
