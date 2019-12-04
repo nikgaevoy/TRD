@@ -30,7 +30,7 @@ void Karatsuba(size_t siz, hcvect abegin, hcvect bbegin, hvect ans, hvect small,
 
 	fill(ans, ans + 2 * siz, 0);
 
-	if (siz < 60)
+	if (siz <= 32)
 	{
 		stupid(siz, abegin, bbegin, ans);
 
@@ -60,8 +60,8 @@ void Karatsuba(size_t siz, hcvect abegin, hcvect bbegin, hvect ans, hvect small,
 
 void mult(vector<modulo<>> a, vector<modulo<>> b, vector<modulo<>> &c)
 {
-	a.resize(up(max(a.size(), b.size())));
-	b.resize(a.size());
+	a.resize(up(max(a.size(), b.size())), 0);
+	b.resize(a.size(), 0);
 
 	c.resize(a.size() * 2);
 
