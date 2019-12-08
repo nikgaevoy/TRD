@@ -1,7 +1,9 @@
-# SPb SU LOUD Enough Team Reference Document
+# Team Reference Document
+
+_Made by SPb SU LOUD Enough._
 
 Compile using LuaTeX:
 
 	lualatex main.tex
 
-Note that two runs needed for the page counter in the header.
+Note that several runs are required for the correct number of pages and the counter in the header.
