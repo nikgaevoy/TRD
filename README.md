@@ -2,6 +2,8 @@
 
 _Made by SPb SU LOUD Enough._
 
+[The file itself.](main.pdf)
+
 Compile using LuaTeX:
 
 	lualatex main.tex
