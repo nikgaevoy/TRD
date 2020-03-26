@@ -1,0 +1,143 @@
+\documentclass[12pt,a4paper,russian]{article}
+
+\sloppy
+
+\usepackage[small]{complexity}
+\usepackage{csquotes}
+\usepackage[russian,english]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{comment}
+\usepackage{bookmark}
+\usepackage{mathtools}
+\usepackage{makecell,xcolor}
+\usepackage{tikz}
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+
+\usepackage{forloop}
+
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage{fancybox,fancyhdr}
+\usepackage{lastpage}
+\usepackage{titling}
+
+\usepackage{fontspec}
+
+\setmainfont[Ligatures={TeX,Historic}]{CMU Serif}
+\setsansfont{CMU Sans Serif}
+\setmonofont{Fira Code}[
+	Contextuals=Alternate  % Activate the calt feature
+]
+\usepackage{listings}
+\usepackage{lstfiracode}
+\lstset{
+	style=FiraCodeStyle,
+    basicstyle=\ttfamily,   % Use \ttfamily for source code listings
+    numbers=left,
+	breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
+}
+
+\lstset{tabsize=4}
+
+\DeclarePairedDelimiter\set{\lbrace}{\rbrace}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand{\map}[2]{\set{#1 \mid #2}}
+
+\def\sqgrid{
+	\newpage
+
+	\begin{figure} \centering \tikz{
+		\foreach \x in {0,...,50} { % вот тут количество строк
+			\draw[color=gray,opacity=0.45] (0, 0.5 * \x cm) -- (17, 0.5 * \x cm);
+		}
+		\foreach \x in {0,...,34} { % вот тут количество столбцов
+			\draw[color=gray,opacity=0.45] (0.5 * \x cm, 0) -- (0.5 * \x cm, 25);
+		}
+	} \end{figure}
+}
+
+\def\dotgrid{
+	\newpage
+
+	\begin{figure} \centering \tikz{
+		\foreach \x in {0,...,50} {
+			\foreach \y in {0,...,34} {
+				\fill[fill=gray,opacity=0.45] (0.5 * \y cm, 0.5 * \x cm)
+					node{\textcolor{gray}{.}};
+			};
+		}
+	} \end{figure}
+}
+
+\begin{document}
+
+\selectlanguage{russian}
+
+\tableofcontents
+
+\section{CLion}
+
+\subsection{Settings}
+
+\begin{itemize}
+	\item[$\rightarrow$] Editor
+	      \begin{itemize}
+		      \item[$\rightarrow$] Code Style $\rightarrow$ C/C++
+		            \begin{itemize}
+			            \item[$\rightarrow$] Wrapping and Braces
+			                  \begin{itemize}
+				                  \item[$\rightarrow$] Braces placement $\rightarrow$ все next line
+				                  \item[$\rightarrow$] `if()' statement $\rightarrow$ `else' on new line
+			                  \end{itemize}
+			            \item[$\rightarrow$] Tabs and Indents $\rightarrow$ Use tab character $\rightarrow$ Smart tabs
+		            \end{itemize}
+
+		      \item[$\rightarrow$] Font $\rightarrow$ Font: Fira Code $\rightarrow$ Enable font ligatures (делает красивый шрифт)
+	      \end{itemize}
+
+	\item[$\rightarrow$] Build, Execution,\ldots $\rightarrow$ CMake $\rightarrow$ тыкнуть на плюсик, список должен стать из Debug и Release, через некоторое время они подтянутся в выпадайку при компиляции
+\end{itemize}
+
+\subsection{Shortcuts}
+
+\begin{itemize}
+	\item Ctrl+Alt+L --- форматирование, можно тыкать постоянно
+	\item Shift+F10 --- запуск
+	\item Shift+F9 --- запуск с дебаггером (надо не забыть сменить на дебаг в выпадайке)
+	\item Ctrl+F9 --- компиляция
+	\item Ctrl+F8 --- breakpoint
+	\item Ctrl+F7/F8/F9 при дебаге step into/step over/resume
+	\item Ctrl+F2 останавливает программу
+	\item Shift+F6 переименовывает переменную и все ее вхождения
+	\item Ctrl+B переходит к объявлению функции/переменной/класса под курсором или переходит в файл
+	\item Alt+вертикальные стрелочки ходит по функциям
+	\item Alt+горизонтальные стрелочки ходит по файлам
+	\item Alt+цифра открывает/закрывает соответствующую менюшку
+	\item Если дважды нажать на Ctrl, зажать и потыкать на стрелочки вверх/вниз, это сделает мультикурсор, а Escape его потом обратно уберет
+\end{itemize}
+
+\section{Шаблон}
+
+\lstinputlisting[language=C++]{code/template.cpp}
+
+\section{Общее}
+
+Избегаем глобальных переменных, кроме констант, кооторые обязательно должны быть const (исключение --- mt). Если есть какая-то глобальная динамика или еще что-нибудь такое, заводим для ее внутренностей класс или хотя бы функцию со static переменными.
+
+DRY: Все константы в коде, которые используются несколько раз, должны быть обернуты в константы, код, который используется несколько раз, должен быть обернут в функцию или хотя бы в лямбду
+
+KISS: Избегаем неиспользуемого и длинного кода. Если написали какую-то ерунду и поняли, что ее можно было написать вдвое короче и проще, лучше переписать, потому что это все равно потом дебажить.
+
+Базу индукции в рекурсии лучше разбирать в начале функции, так эту проверку придется писать только один раз и будет легче проверять.
+
+Переменные лучше называть так, чтобы об их назначении можно было догадаться только по их объявлению, писать длинные названия переменных в коде поможет автодополнение (Ctrl+пробел).
+
+Если есть, например, таблица размера $n \times m$ и она хранится в каком-то двумерном векторе, то для получения ее размеров лучше использовать метод size этого самого вектора, а не константы $n$ и $m$. Аналогично, если какой-то фор должен идти до конца массива, лучше условие написать до конца массива, а не до $n$. Эту убережет от проблем, когда выясняется, что жизнь, например, будет лучше, если в лабиринт добавить границу, или в граф --- пару фиктивных вершин. В идеале, константы типа размера входа должны использоваться только при считывании.
+
+\end{document}
