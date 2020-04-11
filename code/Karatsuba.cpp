@@ -65,11 +65,11 @@ void mult(vector<modulo<>> a, vector<modulo<>> b, vector<modulo<>> &c)
 	a.resize(up(max(a.size(), b.size())), 0);
 	b.resize(a.size(), 0);
 
-	c.assign(a.size() * 2, 0);
+	c.resize(max(c.size(), a.size() * 2), 0);
 
-	auto small = c;
-	auto big = c;
-	auto sum = c;
+	vector<modulo<>> small(2 * a.size());
+	auto big = small;
+	auto sum = small;
 
 	Karatsuba(a.size(), a.begin(), b.begin(), c.begin(), small.begin(), big.begin(), sum.begin());
 }
