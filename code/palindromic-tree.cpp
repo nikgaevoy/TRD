@@ -1,43 +1,49 @@
-auto pal_tree(const string &str)
+class treert
 {
-	const int rooteven = str.size();
-	const int rootodd = str.size() + 1;
-
-	vector<int> siz(str.size() + 2, 1), link(str.size() + 2, rooteven), type(str.size());
-
-	vector<vector<int>> mem(str.size() + 2, vector<int>(26, -1));
-	siz[rooteven] = 0;
-	siz[rootodd] = -1;
-	link[rooteven] = rootodd;
-	link[rootodd] = rootodd;
-
-	for (int i = 0; i < str.size(); i++)
+	struct node
 	{
-		auto it = str[i] - 'a';
+		array<int, 26> nxt;
+		int par, link, siz;
 
-		auto get = [&](int p) {
-			while (!(i - siz[p] - 1 >= 0 && str[i - siz[p] - 1] == str[i]))
-				p = link[p];
+		node(int siz, int par, int link) : par(par), link(link == -1 ? 1 : link), siz(siz)
+		{
+			fill(nxt.begin(), nxt.end(), -1);
+		}
+	};
 
-			return p;
+	vector<node> mem;
+	vector<int> suff; // longest palindromic suffix
+
+public:
+	treert(const string &str) : suff(str.size())
+	{
+		mem.emplace_back(-1, -1, 0);
+		mem.emplace_back(0, 0, 0);
+		mem[0].link = mem[1].link = 0;
+
+		auto link_walk = [&](int st, int pos)
+		{
+			while (pos - 1 - mem[st].siz < 0 || str[pos] != str[pos - 1 - mem[st].siz])
+				st = mem[st].link;
+
+			return st;
 		};
 
-		auto prev = get(i == 0 ? rootodd : type[i - 1]);
-
-		if (mem[prev][it] == -1)
+		for (int i = 0, last = 1; i < str.size(); i++)
 		{
-			mem[prev][it] = i;
-			siz[i] = siz[prev] + 2;
+			last = link_walk(last, i);
+			auto ind = str[i] - 'a';
 
-			auto l = get(link[prev]);
+			if (mem[last].nxt[ind] == -1)
+			{
+				// order is important
+				mem.emplace_back(mem[last].siz + 2, last, mem[link_walk(mem[last].link, i)].nxt[ind]);
+				mem[last].nxt[ind] = (int)mem.size() - 1;
+			}
 
-			link[i] = mem[l][it];
-			if (link[i] == i)
-				link[i] = rooteven;
+			last = mem[last].nxt[ind];
+
+			suff[i] = last;
 		}
-
-		type[i] = mem[prev][it];
 	}
-
-	return make_tuple(type, link, siz, mem);
-}
+};
