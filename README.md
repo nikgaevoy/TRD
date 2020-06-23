@@ -1,4 +1,4 @@
-# Team Reference Document
+# Team Reference Document ![CI](https://github.com/nikgaevoy/TRD/workflows/CI/badge.svg?event=push)
 
 _Made by SPb SU LOUD Enough._
 
