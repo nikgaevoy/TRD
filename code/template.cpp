@@ -1,11 +1,9 @@
 #include <bits/stdc++.h>
 
-
 using namespace std;
 
-
 using ll = long long;
-
+using ull = unsigned long long;
 
 mt19937 mt(736);
 
@@ -26,9 +24,15 @@ int main()
 
 	ifstream fin("../input.txt");
 
-	solve(fin);
+	do
+	{
+		solve(fin);
 
-	cout << "clock: " << setprecision(4) << (clock() - st) / (double) CLOCKS_PER_SEC << endl;
+		string str;
+		while (getline(fin, str) && str != string(max(1, (int)str.size()), '='));
+	} while (fin);
+
+	cout << "clock: " << double(clock() - st) / CLOCKS_PER_SEC << endl;
 #else
 	solve();
 #endif
