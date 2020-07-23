@@ -1,6 +1,8 @@
 \section{Language-specific}
 
-\subsection{G++ builtins}
+\subsection{C++}
+
+\subsubsection{G++ builtins}
 
 \begin{itemize}
 \item  \_\_builtin\_popcount(x)~--- количество единичных бит в двоичном представлении 32-битного (знакового или беззнакового) целого числа.
@@ -15,6 +17,10 @@ $0$, для $1$ --- $31$ и т. д. Тоже не надо вызвывать с
 (то есть $N$), если на всех позициях нули.
 \item bitset<N>.\_Find\_next(x)~--- номер первой позиции с единицей среди позиций с номерами строго больше $x$; если такой нет, то $N$.
 \end{itemize}
+
+\subsubsection{hash}
+
+\lstinputlisting[language=C++]{code/hacks.cpp}
 
 \subsection{Python}
 

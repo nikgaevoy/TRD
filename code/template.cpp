@@ -28,11 +28,13 @@ int main()
 	{
 		solve(fin);
 
+		cout << "===" << endl;
+
 		string str;
 		while (getline(fin, str) && str != string(max(1, (int)str.size()), '='));
 	} while (fin);
 
-	cout << "clock: " << double(clock() - st) / CLOCKS_PER_SEC << endl;
+	cout << setprecision(6) << "clock: " << double(clock() - st) / CLOCKS_PER_SEC << endl;
 #else
 	solve();
 #endif
