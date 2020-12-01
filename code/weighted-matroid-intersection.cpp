@@ -5,43 +5,65 @@
 // ver is the number of the elements in the matroid,
 // e[i].w is the cost of the i-th element
 // first return value is new independent set
-// second return value is difference between 
+// second return value is difference between
 // new and old costs
 // oracle(set, red) and oracle(set, blue) check whether
 // or not the set lies in red or blue matroid respectively
-
-auto expand = [&] (T cur_set) -> pair<T, int>
+auto expand = [&](T in) -> T
 {
-    vector<int> in(ver);
-    for (int i = 0; i < ver; i++)
-        in[i] = ((cur_set >> i) & 1);
-
-    const int red = 1;
-    const int blue = 2;
-
-    vector<vector<int>> g(ver);
-    for (int i = 0; i < ver; i++)
-    for (int j = 0; j < ver; j++)
-    {
-        T swp_mask = (cur_set ^ (T(1) << i) ^ (T(1) << j));
-        if (!in[i] && in[j])
-        {
-            if (oracle(swp_mask, red))
-                g[i].push_back(j);
-            if (oracle(swp_mask, blue))
-                g[j].push_back(i);
-        }
-    }
+    vector<int> ids;
+    for (int i = 0; i < int(es.size()); i++)
+        if (in[i])
+            ids.push_back(i);
 
     vector<int> from, to;
-    for (int i = 0; i < ver; i++) if (!in[i])
-    {
-        T add_mask = cur_set ^ (T(1) << i);
-        if (oracle(add_mask, blue))
-            from.push_back(i);
-        if (oracle(add_mask, red))
-            to.push_back(i);
+    /// Given a set that is independent in both matroids, answers
+    /// queries "If we add i-th element to the set, will it still be
+    /// independent in red/blue matroid?". Usually can be done quickly.
+    can_extend full_can(ids, n, es);
+
+    for (int i = 0; i < int(es.size()); i++)
+        if (!in[i])
+        {
+            auto new_ids = ids;
+            new_ids.push_back(i);
+
+            auto is_red = full_can.extend_red(i, es);
+            auto is_blue = full_can.extend_blue(i, es);
+
+            if (is_blue)
+                from.push_back(i);
+            if (is_red)
+                to.push_back(i);
+
+            if (is_red && is_blue)
+            {
+                T swp_mask = in;
+                swp_mask.flip(i);
+                return swp_mask;
+            }
     }
+
+    vector<vector<int>> g(es.size());
+    for (int j = 0; j < int(es.size()); j++)
+        if (in[j])
+        {
+            auto new_ids = ids;
+            auto p = find(new_ids.begin(), new_ids.end(), j);
+            assert(p != new_ids.end());
+            new_ids.erase(p);
+
+            can_extend cur(new_ids, n, es);
+
+            for (int i = 0; i < int(es.size()); i++)
+                if (!in[i])
+                {
+                    if (cur.extend_red(i, es))
+                        g[i].push_back(j);
+                    if (cur.extend_blue(i, es))
+                        g[j].push_back(i);
+                }
+        }
 
     auto get_cost = [&] (int x)
     {
