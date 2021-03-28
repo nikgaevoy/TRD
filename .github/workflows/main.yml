@@ -29,7 +29,7 @@ jobs:
           # The root LaTeX file to be compiled
           root_file: main.tex
           # Extra arguments to be passed to the latex compiler
-          args: -lualatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
+          args: -lualatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode -latexoption=-shell-escape
           # Install extra packages by apt-get
           extra_system_packages: fonts-firacode
       - name: LaTeX compilation
@@ -38,7 +38,7 @@ jobs:
           # The root LaTeX file to be compiled
           root_file: main.tex
           # Extra arguments to be passed to the latex compiler
-          args: -lualatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
+          args: -lualatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode -latexoption=-shell-escape
           # Install extra packages by apt-get
           extra_system_packages: fonts-firacode
       - name: LaTeX compilation
@@ -47,7 +47,7 @@ jobs:
           # The root LaTeX file to be compiled
           root_file: main.tex
           # Extra arguments to be passed to the latex compiler
-          args: -lualatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
+          args: -lualatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode -latexoption=-shell-escape
           # Install extra packages by apt-get
           extra_system_packages: fonts-firacode
 
