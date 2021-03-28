@@ -1,20 +1,20 @@
 \section{Bugs}
 
 \begin{itemize}
-	\item \mintinline{C++}{powmod} :)
+	\item \mintinline{cpp}{powmod} :)
 
 	\item Всегда чекать Куна дважды, особенно на количество итераций
 
-	\item \mintinline{C++}{uniform_int_distribution} от одного параметра
+	\item \mintinline{cpp}{uniform_int_distribution} от одного параметра
 
-	\item \mintinline{C++}{for (char c : "NEWS")}
+	\item \mintinline{cpp}{for (char c : "NEWS")}
 
 	\item Порядок верхних и нижних границ в случае, когда задача двумерна
 		$t - b \neq b - t$
 
-	\item static с мультитестами
+	\item \mintinline{cpp}{static} с мультитестами
 
-	\item set со своим компаратором склеивает элементы
+	\item \mintinline{cpp}{set} со своим компаратором склеивает элементы
 
 	\item Два вектора с соответствующими элементами, сортим один, а элементы
 		второго ссылаются на чушь. Предлагается лечить заведением структуры с
@@ -34,5 +34,5 @@
 	\item Когда ходим большим количеством указателей по циклу, на единицу
 		сдвигается только первый указатель, а остальные могут сдвинуться на много.
 
-	\item \mintinline{C++}{string str1(str2, 'x'); str1 = 'a';}
+	\item \mintinline{cpp}{string str1(str2, 'x'); str1 = 'a';}
 \end{itemize}

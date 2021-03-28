@@ -1,6 +1,6 @@
-// integer (x, y) : 0 <= x < n, 0 < y <= (kx + b) / d 
+// integer $(x, y) : 0 \leq x < n, 0 < y \leq (kx + b) / d$ 
 // (real division)
-// In other words, sum_{x=0}^{n-1} [(kx+b)/d]
+// In other words, $\sum_{x=0}^{n-1} \floor{(kx+b)/d}$
 ll trapezoid (ll n, ll k, ll b, ll d)
 {
     if (k == 0)

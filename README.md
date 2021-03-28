@@ -6,6 +6,6 @@ _Made by SPb SU LOUD Enough._
 
 Compile using LuaTeX:
 
-	lualatex main.tex
+	lualatex --shell-escape main
 
 Note that several runs are required for the correct number of pages and the counter in the header.

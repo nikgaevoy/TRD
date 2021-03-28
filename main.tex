@@ -27,27 +27,17 @@
 
 \setmainfont[Ligatures={TeX,Historic}]{CMU Serif}
 \setsansfont{CMU Sans Serif}
-\setmonofont{Fira Code}[
+\setmonofont[Scale=MatchLowercase]{Fira Code}[
 	Contextuals=Alternate  % Activate the calt feature
 ]
-\usepackage{listings}
-\usepackage{lstfiracode}
-\lstset{
-	style=FiraCodeStyle,
-	basicstyle=\ttfamily,   % Use \ttfamily for source code listings
-	numbers=left,
-	breaklines=true,
-	postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
-}
 
-\usepackage{shellesc}
 \usepackage{minted}
 
-\setminted[Bash]{breaklines, linenos=true}
-\setminted[text]{breaklines, linenos=true}
-\setminted[C++]{breaklines, linenos=true}
+\renewcommand\theFancyVerbLine{\normalsize\arabic{FancyVerbLine}}
 
-\lstset{tabsize=4}
+\setminted[bash]{breaklines, linenos=true}
+\setminted[text]{breaklines, linenos=true}
+\setminted[cpp]{breaklines, linenos=true}
 
 \DeclarePairedDelimiter\set{\lbrace}{\rbrace}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
