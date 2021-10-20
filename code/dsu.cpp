@@ -7,7 +7,7 @@ class dsu
 	template<size_t ... t>
 	void merge(int a, int b, std::index_sequence<t...>)
 	{
-		((get<2 * t + 1>(items)(get<2 * t>(items)[a], get<2 * t>(items)[b])), ... );
+		((get<t>(items)(a, b)), ... );
 	}
 
 public:
@@ -32,7 +32,7 @@ public:
 		siz[a] += siz[b];
 		par[b] = a;
 
-		merge(a, b, make_index_sequence<sizeof...(Types) / 2>{});
+		merge(a, b, make_index_sequence<sizeof...(Types)>{});
 
 		return true;
 	}

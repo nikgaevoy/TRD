@@ -1,0 +1,27 @@
+\section{Language specific}
+
+\subsection{C++}
+
+\subsubsection{G++ builtins}
+
+\begin{itemize}
+	\item \mintinline{cpp}{__builtin_popcount(x)}~--- количество единичных бит в двоичном представлении 32-битного (знакового или беззнакового) целого числа.
+	\item \mintinline{cpp}{__builtin_popcountll(x)}~--- то же самое для 64-битных типов.
+	\item \mintinline{cpp}{__builtin_ctz(x)}~--- количество нулей на конце двоичного представления 32-битного целого числа. Например, для $5$ вернётся $0$, для $272 = 256 + 16$ --- $4$ и т. д. Может не работать для нуля (вообще не стоит вызывать для $x = 0$, по-моему это и упасть может).
+	\item \mintinline{cpp}{__builtin_ctzll(x)}~--- то же самое для 64-битных типов.
+	\item \mintinline{cpp}{__builtin_clz(x)}~--- количество нулей в начале двоичного представления 32-битного целого числа. Например, для $2^{31}$ или $-2^{31}$ вернётся
+		$0$, для $1$ --- $31$ и т. д. Тоже не надо вызвывать с $x = 0$.
+	\item \mintinline{cpp}{__builtin_clzll(x)}~--- то же самое для 64-битных типов.
+
+	\item \mintinline{cpp}{bitset<N>._Find_first()}~--- номер первой позиции с единицей в битсете или его размер
+		(то есть $N$), если на всех позициях нули.
+	\item \mintinline{cpp}{bitset<N>._Find_next(x)}~--- номер первой позиции с единицей среди позиций с номерами строго больше $x$; если такой нет, то $N$.
+\end{itemize}
+
+\subsubsection{hash}
+
+\inputminted{cpp}{code/hacks.cpp}
+
+\subsection{Python}
+
+\inputminted{py3}{code/python.py}

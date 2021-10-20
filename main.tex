@@ -27,27 +27,25 @@
 
 \setmainfont[Ligatures={TeX,Historic}]{CMU Serif}
 \setsansfont{CMU Sans Serif}
-\setmonofont{Fira Code}[
+\setmonofont[Scale=MatchLowercase]{Fira Code}[
 	Contextuals=Alternate  % Activate the calt feature
 ]
-\usepackage{listings}
-\usepackage{lstfiracode}
-\lstset{
-	style=FiraCodeStyle,
-    basicstyle=\ttfamily,   % Use \ttfamily for source code listings
-    numbers=left,
-	breaklines=true,
-    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
-}
 
-\lstset{tabsize=4}
+\usepackage{minted}
+
+\renewcommand\theFancyVerbLine{\normalsize\arabic{FancyVerbLine}}
+
+\setminted[bash]{breaklines, linenos}
+\setminted[text]{breaklines, linenos}
+\setminted[cpp]{breaklines, linenos}
+\setminted[py3]{breaklines, linenos}
 
 \DeclarePairedDelimiter\set{\lbrace}{\rbrace}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
-\newcommand{\map}[2]{\set{#1 \mid #2}}
+\DeclarePairedDelimiterX{\map}[2]{\lbrace}{\rbrace}{#1 \,\delimsize\vert\,\mathopen{} #2}
 
 \title{Team Reference}
 \author{SPb SU LOUD Enough (Bochkov, Gaevoy, Makarov)}
@@ -64,12 +62,12 @@
 	\newpage
 
 	\begin{figure} \centering \tikz{
-		\foreach \x in {0,...,50} { % вот тут количество строк
-			\draw[color=gray,opacity=0.45] (0, 0.5 * \x cm) -- (17, 0.5 * \x cm);
-		}
-		\foreach \x in {0,...,34} { % вот тут количество столбцов
-			\draw[color=gray,opacity=0.45] (0.5 * \x cm, 0) -- (0.5 * \x cm, 25);
-		}
+			\foreach \x in {0,...,50} { % вот тут количество строк
+				\draw[color=gray,opacity=0.45] (0, 0.5 * \x cm) -- (17, 0.5 * \x cm);
+				}
+				\foreach \x in {0,...,34} { % вот тут количество столбцов
+					\draw[color=gray,opacity=0.45] (0.5 * \x cm, 0) -- (0.5 * \x cm, 25);
+					}
 	} \end{figure}
 }
 
@@ -77,12 +75,12 @@
 	\newpage
 
 	\begin{figure} \centering \tikz{
-		\foreach \x in {0,...,50} {
-			\foreach \y in {0,...,34} {
-				\fill[fill=gray,opacity=0.45] (0.5 * \y cm, 0.5 * \x cm)
+			\foreach \x in {0,...,50} {
+				\foreach \y in {0,...,34} {
+					\fill[fill=gray,opacity=0.45] (0.5 * \y cm, 0.5 * \x cm)
 					node{\textcolor{gray}{.}};
-			};
-		}
+					};
+					}
 	} \end{figure}
 }
 
@@ -99,6 +97,6 @@
 \forloop[2]{ct}{\thepage}{\value{ct} < 24}{%
 	\sqgrid%
 	\dotgrid%
-}
+	}
 
 \end{document}
