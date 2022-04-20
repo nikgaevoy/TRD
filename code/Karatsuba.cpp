@@ -20,9 +20,9 @@ void sub(hcvect abegin, hcvect aend, hvect ans)
 
 void stupid(int siz, hcvect abegin, hcvect bbegin, hvect ans)
 {
-	for (auto a = abegin; a != abegin + siz; ++a, ans -= (siz - 1))
-		for (auto b = bbegin; b != bbegin + siz; ++b, ++ans)
-			*ans += *a * *b;
+	for (int i = 0; i < siz; i++)
+		for (int j = 0; j < siz; j++)
+			*(ans + i + j) += *(abegin + i) * *(bbegin + j);
 }
 
 
