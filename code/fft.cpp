@@ -40,10 +40,7 @@ void fft(vector<T> &arr, const vector<T> &z, const vector<unsigned> &perm)
 
 	const auto root_exp = (int) z.size();
 
-	for (int k = 0, w_exp = root_exp / 2; (1u << k) < arr.size(); k++, w_exp /= 2)
-	{
-		const int step = int(1u << k);
-
+	for (int step = 1, w_exp = root_exp / 2; step < arr.size(); step *= 2, w_exp /= 2)
 		for (int i = 0; i < arr.size(); i += 2 * step)
 			for (int j = 0; j < step; j++)
 			{
@@ -56,7 +53,6 @@ void fft(vector<T> &arr, const vector<T> &z, const vector<unsigned> &perm)
 				a = x;
 				b = y;
 			}
-	}
 
 	if constexpr(inv)
 	{
