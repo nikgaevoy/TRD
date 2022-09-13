@@ -3,32 +3,6 @@ mt19937 mt(736);
 using ld = double;
 constexpr ld eps = 1e-9;
 
-vector <ld> &operator+=(vector <ld> &lhs, const vector <ld> &rhs)
-{
-	assert(ssize(lhs) == ssize(rhs));
-
-	for (auto i: ranges::iota_view(0, ssize(lhs)))
-		lhs[i] += rhs[i];
-
-	return lhs;
-}
-
-vector <ld> operator*(vector <ld> lhs, ld x)
-{
-	for (auto &it: lhs)
-		it *= x;
-
-	return lhs;
-}
-
-vector <ld> &operator/=(vector <ld> &lhs, ld x)
-{
-	for (auto &it: lhs)
-		it /= x;
-
-	return lhs;
-}
-
 bool eps_nonneg(ld x)
 {
 	return x >= -eps;
@@ -44,18 +18,34 @@ bool cmp_abs(ld a, ld b)
 	return abs(a) < abs(b);
 }
 
+vector<ld> &add_prod(vector<ld> &lhs, const vector<ld> &rhs, ld x)
+{
+	assert(ssize(lhs) == ssize(rhs));
 
-void basis_change(vector <ld> &row, vector <ld> &nd, int b)
+	for (auto i: ranges::iota_view(0, ssize(lhs)))
+		lhs[i] += rhs[i] * x;
+
+	return lhs;
+}
+
+vector<ld> &operator/=(vector<ld> &lhs, ld x)
+{
+	for (auto &it: lhs)
+		it /= x;
+
+	return lhs;
+}
+
+void basis_change(vector<ld> &row, const vector<ld> &nd, int b)
 {
 	auto mult = row[b];
 
-	row += nd * mult;
+	add_prod(row, nd, mult);
 
 	row[b] = 0;
 }
 
-
-void pivot(vector <vector<ld>> &a, vector<int> &b, vector <ld> &func, int wh, int x)
+void pivot(vector<vector<ld>> &a, vector<int> &b, vector<ld> &func, int wh, int x)
 {
 	a[wh][b[wh]] = -1;
 	b[wh] = x;
@@ -69,7 +59,7 @@ void pivot(vector <vector<ld>> &a, vector<int> &b, vector <ld> &func, int wh, in
 	basis_change(func, a[wh], b[wh]);
 }
 
-bool simplex(vector <vector<ld>> &a, vector<int> &b, vector <ld> &func)
+bool simplex(vector<vector<ld>> &a, vector<int> &b, vector<ld> &func)
 {
 	while (true)
 	{
@@ -82,9 +72,9 @@ bool simplex(vector <vector<ld>> &a, vector<int> &b, vector <ld> &func)
 		if (cand.empty())
 			return true;
 
-		auto x = cand[uniform_int_distribution < int > {0, (int) cand.size() - 1}(mt)];
+		auto x = cand[uniform_int_distribution<int>{0, (int) cand.size() - 1}(mt)];
 
-		vector <ld> len(a.size(), numeric_limits<ld>::max());
+		vector<ld> len(a.size(), numeric_limits<ld>::max());
 
 		for (auto i: ranges::iota_view(0, ssize(len)))
 			if (a[i][x] < -eps)
@@ -111,7 +101,7 @@ enum results
  * $costs * x -> max$
  * assumes at least one inequality and at least one variable
  * */
-results global_solve(vector <vector<ld>> a, const vector <ld> &rhs, const vector <ld> &costs, vector <ld> &ans)
+results global_solve(vector<vector<ld>> a, const vector<ld> &rhs, const vector<ld> &costs, vector<ld> &ans)
 {
 	assert(!a.empty() && a.size() == rhs.size() && !costs.empty() && ans.size() == costs.size());
 	const auto m = costs.size() + a.size() + 2;
@@ -126,7 +116,7 @@ results global_solve(vector <vector<ld>> a, const vector <ld> &rhs, const vector
 		row.rbegin()[1] = 1;
 	}
 
-	vector <ld> func(m), lambda(m);
+	vector<ld> func(m), lambda(m);
 	vector<int> b(a.size());
 
 	iota(b.begin(), b.end(), (int) costs.size());
