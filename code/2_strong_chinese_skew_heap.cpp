@@ -323,35 +323,6 @@ int main()
 		while (getline(fin, str) && str != string(max(1, (int) str.size()), '='));
 	} while (fin);
 
-#ifdef STRESS
-	for (int cnt = 1;; cnt++)
-	{
-		stringstream ss, in1, out1, in2, out2;
-
-		gen(ss);
-
-		in1 << ss.str();
-		in2 << ss.str();
-
-		solve(in1, out1);
-		stress(in2, out2);
-
-		if (out1.str() != out2.str())
-		{
-			cout << "fail: " << cnt << endl;
-			cout << ss.str() << endl;
-			cout << "solve:" << endl;
-			cout << out1.str() << endl;
-			cout << "stress:" << endl;
-			cout << out2.str() << endl;
-
-			break;
-		}
-		else if (cnt % 100 == 0)
-			cout << "ok: " << cnt << endl;
-	}
-#endif
-
 	cout << setprecision((int) floor(log10(chrono::steady_clock::duration::period::den)));
 	cout << "clock: " << chrono::duration<double>(chrono::steady_clock::now() - st).count() << endl;
 #else

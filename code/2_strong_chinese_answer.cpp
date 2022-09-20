@@ -269,8 +269,8 @@ vector<int> solve(size_t n, const vector<tuple<int, int, int>> &edges, int root 
 	}
 
 	minheap<int> pq(gr[root].begin(), gr[root].end());
+	used[root] = true;
 	vector<bool> used(n);
-	used.front() = true;
 	vector<int> ans;
 
 	while (!pq.empty())
