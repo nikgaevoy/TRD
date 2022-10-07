@@ -21,7 +21,7 @@ public:
 
 		while (l > 0)
 		{
-			upd(l);
+			upd(l - 1);
 			upd(r);
 
 			if (l < r)
