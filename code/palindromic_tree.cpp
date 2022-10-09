@@ -5,7 +5,7 @@ class treert
 		array<int, 26> nxt;
 		int par, link, siz;
 
-		node(int siz, int par, int link) : par(par), link(link == -1 ? 1 : link), siz(siz)
+		node(int siz, int par, int link) : par(par), link(link == -1 ? 1 : link), siz(siz) // note -1 case
 		{
 			fill(nxt.begin(), nxt.end(), -1);
 		}
