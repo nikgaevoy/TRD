@@ -1,8 +1,7 @@
-template<class T>
-class segtree
+template<class Val, class Change, Val zero = Val{}, Change one = Change{}>
+class pushfreesegtree
 {
-	vector<pair<T, T>> arr;
-	size_t sz;
+	vector<pair<Val, Change>> arr;
 
 	void upd(int v)
 	{
@@ -11,15 +10,27 @@ class segtree
 	}
 
 public:
-	explicit segtree(size_t n) : arr(2 * up(n)), sz(n)
+	explicit pushfreesegtree(size_t n = 0) : arr(2 * up(n), {zero, one})
 	{}
 
-	auto segmult(const T &x, size_t l, size_t r)
+	template<class It>
+	explicit pushfreesegtree(It be, It en) : arr(2 * up(distance(be, en)), {zero, one})
+	{
+		transform(be, en, arr.begin() + ssize(arr) / 2, [](auto x)
+		{
+			return pair{Val{x}, one};
+		});
+
+		for (int i = ssize(arr) / 2 - 1; i > 0; i--)
+			upd(i);
+	}
+
+	auto segmult(const Change &x, size_t l, size_t r)
 	{
 		l += arr.size() / 2;
 		r += arr.size() / 2;
 
-		while (l > 0)
+		while (r > 0)
 		{
 			upd(l - 1);
 			upd(r);
@@ -35,13 +46,6 @@ public:
 			l /= 2;
 			r /= 2;
 		}
-
-		assert(r == 0);
-	}
-
-	auto segmult(const T &x, size_t l = 0)
-	{
-		return segmult(x, l, sz);
 	}
 
 	auto segsum(size_t l, size_t r)
@@ -49,37 +53,40 @@ public:
 		l += arr.size() / 2;
 		r += arr.size() / 2;
 
-		T ansl{}, ansr{};
+		Val ansl = zero, ansr = zero;
 
-		while (l > 0)
+		while (r > 0)
 		{
+			if (l > 1)
+				ansl *= arr[l - 1].second;
+			if (r < ssize(arr))
+				ansr *= arr[r].second;
+
 			if (l < r)
 			{
 				if (l & 1u)
 				{
-					ansl *= arr[l - 1].second;
 					ansl += arr[l].first * arr[l].second;
 					l++;
 				}
 				if (r & 1u)
 				{
-					ansr *= arr[r].second;
 					r--;
 					ansr += arr[r].first * arr[r].second;
 				}
+			}
+			else
+			{
+				if (l & 1u)
+					l++;
+				if (r & 1u)
+					r--;
 			}
 
 			l /= 2;
 			r /= 2;
 		}
 
-		assert(r == 0);
-
 		return ansl + ansr;
-	}
-
-	auto segsum(size_t l = 0)
-	{
-		return segsum(l, sz);
 	}
 };
