@@ -48,7 +48,7 @@ public:
 		}
 	}
 
-	auto segsum(size_t l, size_t r)
+	auto segsum(size_t l, size_t r) const
 	{
 		l += arr.size() / 2;
 		r += arr.size() / 2;
