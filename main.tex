@@ -31,13 +31,14 @@
 	Contextuals=Alternate  % Activate the calt feature
 ]
 
+\usepackage{pdflscape,multicol}
 \usepackage{minted}
 
 \renewcommand\theFancyVerbLine{\normalsize\arabic{FancyVerbLine}}
 
 \setminted[bash]{breaklines, linenos}
 \setminted[text]{breaklines, linenos}
-\setminted[cpp]{breaklines, linenos}
+\setminted[cpp]{obeytabs=true, tabsize=4, breaklines, linenos}
 \setminted[py3]{breaklines, linenos}
 
 \DeclarePairedDelimiter\set{\lbrace}{\rbrace}
@@ -90,13 +91,17 @@
 
 \tableofcontents
 
-\input{contents}
+\begin{landscape}
+	\begin{multicols}{2}
+		\input{contents}
+	\end{multicols}
+\end{landscape}
 
-\newcounter{ct}
+%\newcounter{ct}
 
-\forloop[2]{ct}{\thepage}{\value{ct} < 24}{%
-	\sqgrid%
-	\dotgrid%
-	}
+%\forloop[2]{ct}{\thepage}{\value{ct} < 24}{%
+%	\sqgrid%
+%	\dotgrid%
+%	}
 
 \end{document}
