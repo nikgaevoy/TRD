@@ -3,57 +3,42 @@ vector<int> suffix_array(string_view str)
 	vector<int> p(str.size());
 
 	iota(p.begin(), p.end(), 0);
-	vector<ll> group(p.size());
+	vector<pair<int, int>> group(p.size());
 
 	for (int i = 0; i < ssize(group); i++)
-		group[i] = ll(str[i]);
+		group[i] = {int(str[i]), -1};
+
+	auto compress = [&](int len)
+	{
+		for (int l = 0, r, val = 0; l < ssize(p); val++, l = r)
+		{
+			for (r = l; r < ssize(p) && group[p[l]] == group[p[r]]; r++);
+
+			for (int i = l; i < r; i++)
+				group[p[i]].first = val;
+		}
+
+		for (auto i: ranges::iota_view(0, ssize(group)))
+			group[i].second = group[(i + len) % str.size()].first;
+	};
 
 	auto cmp = [&](int a, int b)
 	{
-		return group[a] <=> group[b];
+		return group[a] < group[b];
 	};
 
-	auto cmp_bool = [&](int a, int b)
-	{
-		return cmp(a, b) == strong_ordering::less;
-	};
-
-	ranges::sort(p, cmp_bool);
-
-	vector<pair<int, int>> blocks;
-
-	auto gen_blocks = [&]()
-	{
-		blocks.clear();
-
-		for (int l = 0, r; l < (int) str.size(); l = r)
-		{
-			for (r = l; r < (int) str.size() && cmp(p[l], p[r]) == strong_ordering::equal; r++);
-
-			for (int i = l; i < r; i++)
-				group[p[i]] = (int) blocks.size();
-
-			blocks.emplace_back(l, r);
-		}
-	};
-
-	gen_blocks();
+	ranges::sort(p, cmp);
 
 	for (auto len = 1; len < (int) str.size(); len *= 2)
 	{
+		compress(len);
+
+		for (int l = 0, r, val = 0; l < ssize(p); val++, l = r)
 		{
-			vector<ll> tmp(group.size());
+			for (r = l; r < ssize(p) && group[p[l]].first == group[p[r]].first; r++);
 
-			for (auto i: ranges::iota_view(0, ssize(tmp)))
-				tmp[i] = group[i] * ssize(blocks) + group[(i + len) % str.size()];
-
-			group = std::move(tmp);
+			sort(p.begin() + l, p.begin() + r, cmp);
 		}
-
-		for (auto [l, r]: blocks)
-			sort(p.begin() + l, p.begin() + r, cmp_bool);
-
-		gen_blocks();
 	}
 
 	return p;
