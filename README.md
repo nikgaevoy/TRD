@@ -8,4 +8,4 @@ Compile using LuaTeX:
 
 	lualatex --shell-escape main
 
-Note that several runs are required for the correct number of pages and the counter in the header.
+Note that several runs are required for the correct number of pages and the counter in the header. Also, you can simply call ```make```.

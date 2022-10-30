@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper,russian]{article}
+\documentclass[12pt,a4paper,russian,landscape,twocolumn]{article}
 
 \sloppy
 
@@ -36,10 +36,10 @@
 
 \renewcommand\theFancyVerbLine{\normalsize\arabic{FancyVerbLine}}
 
-\setminted[bash]{breaklines, linenos}
-\setminted[text]{breaklines, linenos}
-\setminted[cpp]{obeytabs=true, tabsize=4, breaklines, linenos}
-\setminted[py3]{breaklines, linenos}
+\setminted[bash]{breaklines, linenos, xleftmargin=\parindent}
+\setminted[text]{breaklines, linenos, xleftmargin=\parindent}
+\setminted[cpp]{obeytabs=true, tabsize=2, breaklines, linenos, xleftmargin=\parindent}
+\setminted[py3]{breaklines, linenos, xleftmargin=\parindent}
 
 \DeclarePairedDelimiter\set{\lbrace}{\rbrace}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
@@ -91,11 +91,9 @@
 
 \tableofcontents
 
-\begin{landscape}
-	\begin{multicols}{2}
-		\input{contents}
-	\end{multicols}
-\end{landscape}
+\newcommand{\code}{code}
+
+\input{contents}
 
 %\newcounter{ct}
 
