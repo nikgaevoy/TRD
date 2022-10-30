@@ -22,6 +22,9 @@ jobs:
       - name: Set up Git repository
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         uses: actions/checkout@v2
+        
+      - name: Code formatting
+        run: make format
 
       - name: LaTeX compilation
         uses: dante-ev/latex-action@v0.2.0
@@ -32,7 +35,7 @@ jobs:
           args: -lualatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode -latexoption=-shell-escape
           # Install extra packages by apt-get
           extra_system_packages: fonts-firacode
-      - name: LaTeX compilation
+      - name: LaTeX compilation 2
         uses: dante-ev/latex-action@v0.2.0
         with:
           # The root LaTeX file to be compiled
@@ -41,7 +44,7 @@ jobs:
           args: -lualatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode -latexoption=-shell-escape
           # Install extra packages by apt-get
           extra_system_packages: fonts-firacode
-      - name: LaTeX compilation
+      - name: LaTeX compilation 3
         uses: dante-ev/latex-action@v0.2.0
         with:
           # The root LaTeX file to be compiled
