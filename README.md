@@ -4,8 +4,16 @@ _Made by SPb SU LOUD Enough._
 
 [The file itself.](main.pdf)
 
-Compile using LuaTeX:
+## Building
+
+	make
+
+In case you want to do all the steps manually, compile using LuaTeX:
 
 	lualatex --shell-escape main
 
-Note that several runs are required for the correct number of pages and the counter in the header. Also, you can simply call ```make```.
+Note that several runs are required for the correct number of pages and the counter in the header. 
+
+Code formatting is done by ```clang-format```. Run:
+
+	./code/formatted/format.sh
