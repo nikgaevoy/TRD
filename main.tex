@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper,russian,landscape,twocolumn]{article}
+\documentclass[11pt,a4paper,russian,landscape,twocolumn]{article}
 
 \sloppy
 
@@ -25,13 +25,13 @@
 
 \usepackage{fontspec}
 
-\setmainfont[Ligatures={TeX,Historic}]{CMU Serif}
+\setmainfont[Ligatures={TeX}]{CMU Serif}
 \setsansfont{CMU Sans Serif}
 \setmonofont[Scale=MatchLowercase]{Fira Code}[
 	Contextuals=Alternate  % Activate the calt feature
 ]
 
-\usepackage{pdflscape,multicol}
+\usepackage{lipsum}
 \usepackage{minted}
 
 \renewcommand\theFancyVerbLine{\normalsize\arabic{FancyVerbLine}}
@@ -48,6 +48,8 @@
 
 \DeclarePairedDelimiterX{\map}[2]{\lbrace}{\rbrace}{#1 \,\delimsize\vert\,\mathopen{} #2}
 
+\setlength{\columnsep}{1cm}
+
 \title{Team Reference}
 \author{SPb SU LOUD Enough (Bochkov, Gaevoy, Makarov)}
 
@@ -58,6 +60,9 @@
 \fancyfoot[L]{}
 \fancyfoot[C]{}
 \fancyfoot[R]{}
+
+\setlength{\headheight}{13.6pt}
+\setlength{\headsep}{11pt}
 
 \def\sqgrid{
 	\newpage
