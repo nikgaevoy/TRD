@@ -2,7 +2,9 @@
 
 _Made by SPb SU LOUD Enough._
 
-[The file itself.](main.pdf)
+[The current version.](main.pdf)
+
+[The version for the World Finals.](TRD.pdf)
 
 ## Building
 
