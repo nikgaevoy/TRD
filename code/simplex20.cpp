@@ -3,9 +3,9 @@ mt19937 mt(736);
 using ld = double;
 constexpr ld eps = 1e-9;
 
-bool eps_nonneg(ld x)
+bool eps_neg(ld x)
 {
-	return x >= -eps;
+	return x < -eps;
 }
 
 bool eps_zero(ld x)
@@ -146,7 +146,7 @@ results global_solve(vector<vector<ld>> a, const vector<ld> &rhs, const vector<l
 		if (!eps_zero(a[wh].back()))
 			return NO_SOLUTION;
 
-		auto q = int(ranges::find_if(a[wh], eps_nonneg) - a[wh].begin());
+		auto q = int(ranges::find_if(a[wh], eps_neg) - a[wh].begin());
 
 		if (q != ssize(a[wh]))
 		{
